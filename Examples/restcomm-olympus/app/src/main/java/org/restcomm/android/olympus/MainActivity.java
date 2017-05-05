@@ -45,6 +45,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
+import com.google.firebase.messaging.RemoteMessage;
+import com.hyperether.kokoda.KokodaConfig;
+import com.hyperether.kokoda.KokodaManager;
+import com.hyperether.kokoda.KokodaPushListener;
 import com.testfairy.TestFairy;
 //import net.hockeyapp.android.CrashManager;
 //import net.hockeyapp.android.UpdateManager;
@@ -118,6 +123,19 @@ public class MainActivity extends AppCompatActivity
       // No longer needed, we'll change with toast
       // set it to wifi by default to avoid the status message when starting with wifi
       //previousConnectivityStatus = RCConnectivityStatus.RCConnectivityStatusWiFi;
+      KokodaConfig config = new KokodaConfig.Builder()
+              .setDebug(true)
+              .setSendingPushEnabled(true)
+              .setListener(new KokodaPushListener() {
+                 @Override
+                 public void onMessageReceived(RemoteMessage message) {
+                    Toast.makeText(getApplicationContext(),
+                            "PUSH MESSAGE: \n" + message.getData().toString(), Toast.LENGTH_SHORT)
+                            .show();
+                 }
+              })
+              .build();
+      KokodaManager.init(getApplication(), config);
    }
 
    @Override

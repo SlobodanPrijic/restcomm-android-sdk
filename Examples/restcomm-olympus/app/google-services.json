@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "806088411744",
+    "firebase_url": "https://olympushe.firebaseio.com",
+    "project_id": "olympushe",
+    "storage_bucket": "olympushe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:806088411744:android:1cf2c2650138fff7",
+        "android_client_info": {
+          "package_name": "org.restcomm.android.olympus.he"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "806088411744-choht2qqbsa6jreboghtar6o2t995gql.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3oco8G2DS03SPpibVnEVem7zPU_SbCYw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

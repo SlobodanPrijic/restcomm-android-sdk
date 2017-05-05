@@ -24,12 +24,13 @@ android {
     }
 
     defaultConfig {
-        applicationId "org.restcomm.android.olympus"
+        applicationId "org.restcomm.android.olympus.he"
         // Using 18 instead of initial 16 due to introduction of UIAutomator for tests (and more specifically being able to handle system permission dialogs)
         // TODO: lets see if we can workaround this so that App can still use 16 which is good for backward compatibility, yet use 18 for tests
         // (most probably by using gradle product flavors). Notice though that this doesn't affect SDK so not critical
         minSdkVersion 18
         targetSdkVersion 25
+        multiDexEnabled true
 
         logger.info("-- Using versionCode: " + VERSION_CODE)
         versionCode VERSION_CODE.toInteger()
@@ -132,12 +133,21 @@ dependencies {
     testCompile 'junit:junit:4.12'
     // Use local library code
     compile project(':restcomm.android.sdk')
+    compile project(':kokoda.android.sdk')
     // If you want to use latest released restcomm-android-sdk library, please uncomment this and comment previous line
     //compile 'org.restcomm:restcomm-android-sdk:1.0.0-BETA6-55'
     compile 'com.android.support:appcompat-v7:25.1.1'
     compile 'com.android.support:design:25.1.1'
     compile 'com.android.support:support-v4:25.1.1'
     compile 'testfairy:testfairy-android-sdk:1.+@aar'
+
+    // TODO: remove duplicated depencies when Maven repo is up
+    compile 'com.android.support:multidex:1.0.1'
+    compile 'com.android.volley:volley:1.0.0'
+    compile 'com.google.firebase:firebase-core:10.2.0'
+    compile 'com.google.firebase:firebase-messaging:10.2.0'
+    compile 'com.google.code.gson:gson:2.8.0'
+
     //compile 'testfairy:testfairy-android-sdk:1.4.5'
     //compile 'net.hockeyapp.android:HockeySDK:4.1.1'
     ////compile files('./libs/testfairy-android-sdk-1.4.6-unlimited-events.jar')
@@ -147,3 +157,4 @@ dependencies {
     androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
 
 }
+apply plugin: 'com.google.gms.google-services'
