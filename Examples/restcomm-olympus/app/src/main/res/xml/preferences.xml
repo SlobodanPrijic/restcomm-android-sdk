@@ -16,7 +16,7 @@
             android:inputType="textPassword"
             android:summary="Password for Restcomm-Connect authentication"/>
         <EditTextPreference
-            android:defaultValue="cloud.restcomm.com"
+            android:defaultValue="restcomm.hyperether.com"
             android:key="pref_proxy_domain"
             android:title="Domain"
             android:summary="Restcomm-Connect domain, like: 'cloud.restcomm.com'"/>
