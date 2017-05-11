@@ -128,10 +128,15 @@ public class MainActivity extends AppCompatActivity
               .setSendingPushEnabled(true)
               .setListener(new KokodaPushListener() {
                  @Override
-                 public void onMessageReceived(RemoteMessage message) {
-                    Toast.makeText(getApplicationContext(),
-                            "PUSH MESSAGE: \n" + message.getData().toString(), Toast.LENGTH_SHORT)
-                            .show();
+                 public void onMessageReceived(final RemoteMessage message) {
+                    runOnUiThread(new Runnable() {
+                       @Override
+                       public void run() {
+                          Toast.makeText(getApplicationContext(),
+                                  "PUSH MESSAGE: \n" + message.getData().toString(), Toast.LENGTH_SHORT)
+                                  .show();
+                       }
+                    });
                  }
               })
               .setURL("http://restcomm.hyperether.com:3000")
