@@ -142,6 +142,8 @@ public class MainActivity extends AppCompatActivity
               .setURL("http://restcomm.hyperether.com:3000")
               .build();
       KokodaManager.init(getApplication(), config);
+      KokodaManager.getInstance()
+               .setUsername(prefs.getString(RCDevice.ParameterKeys.SIGNALING_USERNAME, ""));
    }
 
    @Override
