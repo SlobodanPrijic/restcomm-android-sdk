@@ -36,11 +36,11 @@ public class OlympusMessageReceiver extends KokodaMessageReceiver {
 
         if (KokodaManager.isInitiated()) {
             super.onMessageReceived(message);
-        } else {
-            Intent startMainActivity = new Intent(this, MainActivity.class);
-            startMainActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startMainActivity.setAction(Intent.ACTION_MAIN);
-            startActivity(startMainActivity);
         }
+
+        Intent startMainActivity = new Intent(this, MainActivity.class);
+        startMainActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startMainActivity.setAction(Intent.ACTION_MAIN);
+        startActivity(startMainActivity);
     }
 }

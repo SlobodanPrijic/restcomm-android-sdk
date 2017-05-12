@@ -117,6 +117,8 @@ public class MessageActivity extends AppCompatActivity
 
       //handleCall(getIntent());
       bindService(new Intent(this, RCDevice.class), this, Context.BIND_AUTO_CREATE);
+
+      ActivityHandler.getInstance().addActivity(this);
    }
 
    @Override
@@ -156,6 +158,8 @@ public class MessageActivity extends AppCompatActivity
          unbindService(this);
          serviceBound = false;
       }
+
+      ActivityHandler.getInstance().removeActivity(this);
    }
 
    @Override

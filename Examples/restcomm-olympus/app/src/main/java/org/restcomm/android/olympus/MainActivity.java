@@ -154,6 +154,8 @@ public class MainActivity extends AppCompatActivity
       Log.i(TAG, "%% onStart");
 
       bindService(new Intent(this, RCDevice.class), this, Context.BIND_AUTO_CREATE);
+
+      ActivityHandler.getInstance().addActivity(this);
    }
 
    @Override
@@ -190,7 +192,11 @@ public class MainActivity extends AppCompatActivity
          //device.detach();
          unbindService(this);
          serviceBound = false;
+         if(ActivityHandler.getInstance().getStackCount() == 1 && device!=null)
+            device.release();
       }
+
+      ActivityHandler.getInstance().removeActivity(this);
    }
 
    @Override
