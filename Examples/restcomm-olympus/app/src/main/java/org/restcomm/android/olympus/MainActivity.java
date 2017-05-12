@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity
    private static final String APP_VERSION = "Restcomm Android Olympus Client " + BuildConfig.VERSION_NAME + "#" + BuildConfig.VERSION_CODE; //"Restcomm Android Olympus Client 1.0.0-BETA4#20";
    FloatingActionButton btnAdd;
    public static String ACTION_DISCONNECTED_BACKGROUND = "org.restcomm.android.olympus.ACTION_DISCONNECTED_BACKGROUND";
-
+   private ActivityHandler activityHandler;
    private static final int CONNECTION_REQUEST = 1;
 
    @Override
@@ -93,6 +93,8 @@ public class MainActivity extends AppCompatActivity
    {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_main);
+      activityHandler = new ActivityHandler();
+      getApplication().registerActivityLifecycleCallbacks(activityHandler);
 
       Log.i(TAG, "%% onCreate");
       Log.i(TAG, "Olympus Version: " + APP_VERSION);
@@ -154,8 +156,6 @@ public class MainActivity extends AppCompatActivity
       Log.i(TAG, "%% onStart");
 
       bindService(new Intent(this, RCDevice.class), this, Context.BIND_AUTO_CREATE);
-
-      ActivityHandler.getInstance().addActivity(this);
    }
 
    @Override
@@ -192,11 +192,9 @@ public class MainActivity extends AppCompatActivity
          //device.detach();
          unbindService(this);
          serviceBound = false;
-         if(ActivityHandler.getInstance().getStackCount() == 1 && device!=null)
-            device.release();
+         if (activityHandler != null && activityHandler.getStackCount() == 0 && device != null)
+              device.release();
       }
-
-      ActivityHandler.getInstance().removeActivity(this);
    }
 
    @Override
@@ -211,6 +209,8 @@ public class MainActivity extends AppCompatActivity
       RCClient.shutdown();
       device = null;
       */
+      if (activityHandler != null)
+          getApplication().unregisterActivityLifecycleCallbacks(activityHandler);
       prefs.unregisterOnSharedPreferenceChangeListener(this);
    }
 

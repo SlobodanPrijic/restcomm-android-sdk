@@ -72,18 +72,6 @@ public class BugReportActivity extends AppCompatActivity implements AdapterView.
       noteEditText = (EditText) findViewById(R.id.noteEditText);
    }
 
-   @Override
-   protected void onStart() {
-      super.onStart();
-      ActivityHandler.getInstance().addActivity(this);
-   }
-
-   @Override
-   protected void onStop() {
-      super.onStop();
-      ActivityHandler.getInstance().removeActivity(this);
-   }
-
    public void onItemSelected(AdapterView<?> parent, View view,
                               int pos, long id) {
       // An item was selected. You can retrieve the selected item using
