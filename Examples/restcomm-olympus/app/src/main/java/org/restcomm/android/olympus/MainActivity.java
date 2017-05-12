@@ -199,6 +199,8 @@ public class MainActivity extends AppCompatActivity
       super.onDestroy();
       // The activity is about to be destroyed.
       Log.i(TAG, "%% onDestroy");
+
+      KokodaManager.clear(this, false);
       /*
       RCClient.shutdown();
       device = null;
