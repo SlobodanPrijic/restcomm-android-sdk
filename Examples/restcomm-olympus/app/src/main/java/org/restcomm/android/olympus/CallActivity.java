@@ -254,6 +254,8 @@ public class CallActivity extends AppCompatActivity implements RCConnectionListe
                 }
             }
         }
+
+        ActivityHandler.getInstance().setCallInProgress(false);
     }
 
     @Override
@@ -588,6 +590,7 @@ public class CallActivity extends AppCompatActivity implements RCConnectionListe
         muteVideo = false;
 
         setVolumeControlStream(AudioManager.STREAM_VOICE_CALL);
+        ActivityHandler.getInstance().setCallInProgress(true);
     }
 
     public void onDisconnected(RCConnection connection) {

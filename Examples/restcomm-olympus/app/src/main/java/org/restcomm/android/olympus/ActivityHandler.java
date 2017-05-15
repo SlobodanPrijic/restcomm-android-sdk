@@ -18,6 +18,7 @@ public class ActivityHandler implements Application.ActivityLifecycleCallbacks {
 
     private static ActivityHandler instance;
     private volatile int applicationStatus = IN_BACKGROUND;
+    private boolean callInProgress = false;
 
     private HashMap<Activity, Integer> activities = new HashMap<>();
 
@@ -98,5 +99,13 @@ public class ActivityHandler implements Application.ActivityLifecycleCallbacks {
 
     public boolean isAppBackgrounded() {
         return applicationStatus == IN_BACKGROUND;
+    }
+
+    public boolean isCallInProgress() {
+        return callInProgress;
+    }
+
+    public void setCallInProgress(boolean callInProgress) {
+        this.callInProgress = callInProgress;
     }
 }
