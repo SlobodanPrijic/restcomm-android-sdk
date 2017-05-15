@@ -4,7 +4,6 @@ import android.content.Intent;
 
 import com.google.firebase.messaging.RemoteMessage;
 import com.hyperether.kokoda.KokodaLogger;
-import com.hyperether.kokoda.KokodaManager;
 import com.hyperether.kokoda.KokodaMessageReceiver;
 
 /**
@@ -34,9 +33,7 @@ public class OlympusMessageReceiver extends KokodaMessageReceiver {
             KokodaLogger.e(TAG, "parse message ", e);
         }
 
-        if (KokodaManager.isInitiated()) {
-            super.onMessageReceived(message);
-        }
+        super.onMessageReceived(message);
 
         if (ActivityHandler.getInstance().isAppBackgrounded() &&
                 !ActivityHandler.getInstance().isCallInProgress()) {
