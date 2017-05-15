@@ -12,9 +12,12 @@ import java.util.HashMap;
  */
 
 public class ActivityHandler implements Application.ActivityLifecycleCallbacks {
+    public static final int IN_FOREGROUND = 2;
+    public static final int IN_BACKGROUND = 1;
     private static final String TAG = ActivityHandler.class.getSimpleName();
 
     private static ActivityHandler instance;
+    private volatile int applicationStatus = IN_BACKGROUND;
 
     private HashMap<Activity, Integer> activities = new HashMap<>();
 
@@ -52,12 +55,14 @@ public class ActivityHandler implements Application.ActivityLifecycleCallbacks {
 
     @Override
     public void onActivityResumed(Activity activity) {
-
+        applicationStatus = IN_FOREGROUND;
+        Log.d(TAG, "applicationStatus = " + IN_FOREGROUND);
     }
 
     @Override
     public void onActivityPaused(Activity activity) {
-
+        applicationStatus = IN_BACKGROUND;
+        Log.d(TAG, "applicationStatus = " + IN_BACKGROUND);
     }
 
     @Override
@@ -73,5 +78,9 @@ public class ActivityHandler implements Application.ActivityLifecycleCallbacks {
     @Override
     public void onActivityDestroyed(Activity activity) {
 
+    }
+
+    public int getApplicationStatus() {
+        return applicationStatus;
     }
 }
