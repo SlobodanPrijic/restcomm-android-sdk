@@ -12,8 +12,8 @@ import java.util.HashMap;
  */
 
 public class ActivityHandler implements Application.ActivityLifecycleCallbacks {
-    public static final int IN_FOREGROUND = 2;
-    public static final int IN_BACKGROUND = 1;
+    private static final int IN_FOREGROUND = 2;
+    private static final int IN_BACKGROUND = 1;
     private static final String TAG = ActivityHandler.class.getSimpleName();
 
     private static ActivityHandler instance;
@@ -49,25 +49,29 @@ public class ActivityHandler implements Application.ActivityLifecycleCallbacks {
     @Override
     public void onActivityStarted(Activity activity) {
         addActivity(activity);
+        applicationStatus = IN_FOREGROUND;
+        Log.d(TAG, "applicationStatus = " + IN_FOREGROUND);
         Log.d(TAG, "onActivityStarted: " + " count = " + getStackCount() + "   activity: " +
                 activity.getClass().toString());
     }
 
     @Override
     public void onActivityResumed(Activity activity) {
-        applicationStatus = IN_FOREGROUND;
-        Log.d(TAG, "applicationStatus = " + IN_FOREGROUND);
+
     }
 
     @Override
     public void onActivityPaused(Activity activity) {
-        applicationStatus = IN_BACKGROUND;
-        Log.d(TAG, "applicationStatus = " + IN_BACKGROUND);
+
     }
 
     @Override
     public void onActivityStopped(Activity activity) {
         removeActivity(activity);
+        if (activities.size() == 0) {
+            applicationStatus = IN_BACKGROUND;
+            Log.d(TAG, "applicationStatus = " + IN_BACKGROUND);
+        }
     }
 
     @Override
@@ -82,5 +86,13 @@ public class ActivityHandler implements Application.ActivityLifecycleCallbacks {
 
     public int getApplicationStatus() {
         return applicationStatus;
+    }
+
+    public boolean isAppForegrounded() {
+        return applicationStatus == IN_FOREGROUND;
+    }
+
+    public boolean isAppBackgrounded() {
+        return applicationStatus == IN_BACKGROUND;
     }
 }
