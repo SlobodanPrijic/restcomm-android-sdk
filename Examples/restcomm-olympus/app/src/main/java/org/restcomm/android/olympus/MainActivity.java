@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity
    {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_main);
-      activityHandler = new ActivityHandler();
+      activityHandler = ActivityHandler.getInstance();
       getApplication().registerActivityLifecycleCallbacks(activityHandler);
 
       Log.i(TAG, "%% onCreate");

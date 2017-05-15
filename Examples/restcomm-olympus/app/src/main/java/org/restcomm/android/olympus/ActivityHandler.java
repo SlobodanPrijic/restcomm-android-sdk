@@ -21,6 +21,10 @@ public class ActivityHandler implements Application.ActivityLifecycleCallbacks {
 
     private HashMap<Activity, Integer> activities = new HashMap<>();
 
+    private ActivityHandler() {
+
+    }
+
     public static ActivityHandler getInstance() {
         if (instance == null)
             instance = new ActivityHandler();
