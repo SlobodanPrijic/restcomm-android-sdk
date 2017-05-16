@@ -527,7 +527,7 @@ public class MainActivity extends AppCompatActivity
       }
    }
 
-   public void onMessageSent(RCDevice device, int statusCode, String statusText)
+   public void onMessageSent(RCDevice device, int statusCode, String statusText, String jobId)
    {
 
    }

@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'testfairy'
+apply plugin: 'license'
 
 buildscript {
     repositories {
@@ -12,6 +13,9 @@ buildscript {
     dependencies {
         // TestFairy gradle plugin
         classpath 'com.testfairy.plugins.gradle:testfairy:1.+'
+
+        // Show licenses from all dependencies
+        classpath 'nl.javadude.gradle.plugins:license-gradle-plugin:0.10.0'
     }
 }
 
@@ -44,6 +48,10 @@ android {
         // Restcomm installation
         buildConfigField "String", "TEST_RESTCOMM_LOGIN", TEST_RESTCOMM_LOGIN
         buildConfigField "String", "TEST_RESTCOMM_PASSWORD", TEST_RESTCOMM_PASSWORD
+//        buildConfigField "String", "TEST_RESTCOMM_ACCOUNT_SID", TEST_RESTCOMM_ACCOUNT_SID
+//        buildConfigField "String", "TEST_RESTCOMM_AUTH_TOKEN", TEST_RESTCOMM_AUTH_TOKEN
+        //buildConfigField "String", "TEST_MESSAGE_VERIFICATION", TEST_MESSAGE_VERIFICATION
+
 
         // ICE_USERNAME & ICE_PASSWORD are defined in project gradle.properties, but also overriden in global gradle.properties
         // which exists *only* in Telestax builds. Reason for this is that Telestax builds use different settings
@@ -147,7 +155,7 @@ dependencies {
     compile project(':restcomm.android.sdk')
     compile project(':kokoda.android.sdk')
     // If you want to use latest released restcomm-android-sdk library, please uncomment this and comment previous line
-    //compile 'org.restcomm:restcomm-android-sdk:1.0.0-BETA6-55'
+    //compile 'org.restcomm:restcomm-android-sdk:1.0.1-BETA6-83'
     compile 'com.android.support:appcompat-v7:25.1.1'
     compile 'com.android.support:design:25.1.1'
     compile 'com.android.support:support-v4:25.1.1'
@@ -167,6 +175,15 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     }
     androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
+    androidTestCompile 'com.loopj.android:android-async-http:1.4.9'
 
 }
 apply plugin: 'com.google.gms.google-services'
+
+//
+/* Uncomment and build with gradle downloadLicenses and a report with all licenses will be generated in build/reports/license
+downloadLicenses {
+    includeProjectDependencies = true
+    dependencyConfiguration = 'compile'
+}
+*/
