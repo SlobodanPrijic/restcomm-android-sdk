@@ -35,8 +35,8 @@ public class OlympusMessageReceiver extends KokodaMessageReceiver {
 
         super.onMessageReceived(message);
 
-        if (ActivityHandler.getInstance().isAppBackgrounded() &&
-                !ActivityHandler.getInstance().isCallInProgress()) {
+        if (!AppStateManager.getInstance().isCallInProgress() &&
+                AppStateManager.getInstance().isAppBackgrounded()) {
             Intent startMainActivity = new Intent(this, SigninActivity.class);
             startMainActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startMainActivity.setAction(Intent.ACTION_MAIN);
