@@ -3,6 +3,8 @@ package org.restcomm.android.olympus;
 import android.content.Intent;
 
 import com.google.firebase.messaging.RemoteMessage;
+import com.google.gson.Gson;
+import com.hyperether.kokoda.CustomPushNotification;
 import com.hyperether.kokoda.KokodaLogger;
 import com.hyperether.kokoda.KokodaMessageReceiver;
 
@@ -25,18 +27,30 @@ public class OlympusMessageReceiver extends KokodaMessageReceiver {
     public void onMessageReceived(RemoteMessage message) {
         //call super method which will show campaign messages
         super.onMessageReceived(message);
+        CustomPushNotification customPushNotification = null;
         try {
-            if (message != null)
+            if (message != null) {
                 KokodaLogger.d(TAG,
                         "parse message: from = " + message.getFrom() + ", message ID = " +
                                 message.getMessageId() + ", send Time = " + message.getSentTime() +
                                 ", data = " + message.getData() + ", from = " + message.getFrom());
+                if (message.getData() != null && message.getData().get("message") != null)
+                    try {
+                        customPushNotification = new Gson()
+                                .fromJson(message.getData().get("message"),
+                                        CustomPushNotification.class);
+                    } catch (Exception e) {
+                        KokodaLogger.e(TAG, "onMessageReceived", e);
+                    }
+            }
+
         } catch (Exception e) {
             KokodaLogger.e(TAG, "parse message ", e);
         }
 
         if (!AppStateManager.getInstance().isCallInProgress() &&
-                AppStateManager.getInstance().isAppBackgrounded()) {
+                AppStateManager.getInstance().isAppBackgrounded() && customPushNotification!=null && CustomPushNotification.CUSTOM_MESSAGE
+                .equalsIgnoreCase(customPushNotification.getMessageType())) {
             Intent startMainActivity = new Intent(this, SigninActivity.class);
             startMainActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startMainActivity.setAction(Intent.ACTION_MAIN);
