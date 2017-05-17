@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.hyperether.kokoda.CustomPushNotification;
 import com.hyperether.kokoda.KokodaLogger;
 import com.hyperether.kokoda.KokodaMessageReceiver;
+import com.hyperether.kokoda.NotificationHandler;
 
 /**
  * Kokoda message receiver. Class just {@link RemoteMessage} send to {@link
@@ -36,25 +37,41 @@ public class OlympusMessageReceiver extends KokodaMessageReceiver {
                                 ", data = " + message.getData() + ", from = " + message.getFrom());
                 if (message.getData() != null && message.getData().get("message") != null)
                     try {
-                        customPushNotification = new Gson()
-                                .fromJson(message.getData().get("message"),
-                                        CustomPushNotification.class);
+                        customPushNotification = new Gson().fromJson(
+                                message.getData().get("message"),
+                                CustomPushNotification.class);
                     } catch (Exception e) {
                         KokodaLogger.e(TAG, "onMessageReceived", e);
                     }
             }
-
         } catch (Exception e) {
             KokodaLogger.e(TAG, "parse message ", e);
         }
 
-        if (!AppStateManager.getInstance().isCallInProgress() &&
-                AppStateManager.getInstance().isAppBackgrounded() && customPushNotification!=null && CustomPushNotification.CUSTOM_MESSAGE
+        if (customPushNotification != null && CustomPushNotification.CUSTOM_MESSAGE
                 .equalsIgnoreCase(customPushNotification.getMessageType())) {
-            Intent startMainActivity = new Intent(this, SigninActivity.class);
-            startMainActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startMainActivity.setAction(Intent.ACTION_MAIN);
-            startActivity(startMainActivity);
+            String msg = customPushNotification.getData().getMessage();
+            if (!AppStateManager.getInstance().isCallInProgress() &&
+                    AppStateManager.getInstance().isAppBackgrounded()) {
+                try {
+                    CallNotification callNot = new Gson().fromJson(msg, CallNotification.class);
+                    if ("call".equals(callNot.getType())) {
+                        Intent startMainActivity = new Intent(this, SigninActivity.class);
+                        startMainActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startMainActivity.setAction(Intent.ACTION_MAIN);
+                        startActivity(startMainActivity);
+                        NotificationHandler.getInstance().showNotification(getApplicationContext(),
+                                "Incoming call", callNot.getFrom() + " is calling...");
+                    } else {
+                        NotificationHandler.getInstance().showNotification(getApplicationContext(),
+                                "", customPushNotification.getData().getMessage());
+                    }
+                } catch (Exception e) {
+                    KokodaLogger.e(TAG, "parse call notification ", e);
+                    NotificationHandler.getInstance().showNotification(getApplicationContext(),
+                            "", customPushNotification.getData().getMessage());
+                }
+            }
         }
     }
 }
