@@ -23,6 +23,8 @@ public class OlympusMessageReceiver extends KokodaMessageReceiver {
 
     @Override
     public void onMessageReceived(RemoteMessage message) {
+        //call super method which will show campaign messages
+        super.onMessageReceived(message);
         try {
             if (message != null)
                 KokodaLogger.d(TAG,
@@ -32,8 +34,6 @@ public class OlympusMessageReceiver extends KokodaMessageReceiver {
         } catch (Exception e) {
             KokodaLogger.e(TAG, "parse message ", e);
         }
-
-        super.onMessageReceived(message);
 
         if (!AppStateManager.getInstance().isCallInProgress() &&
                 AppStateManager.getInstance().isAppBackgrounded()) {
