@@ -42,7 +42,7 @@ public class AppStateManager {
     }
 
     public void showIncomingCallNotification(Context context, String from) {
-        callNotificationId = NotificationHandler.getInstance().showNotification(context,
+        callNotificationId = NotificationHandler.getInstance().showCustomNotification(context,
                 "Incoming call", from + " is calling...");
     }
 

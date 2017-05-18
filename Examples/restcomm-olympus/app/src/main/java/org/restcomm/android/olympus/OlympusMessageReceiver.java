@@ -63,12 +63,12 @@ public class OlympusMessageReceiver extends KokodaMessageReceiver {
                         AppStateManager.getInstance().showIncomingCallNotification(
                                 getApplicationContext(), callNot.getFrom());
                     } else {
-                        NotificationHandler.getInstance().showNotification(getApplicationContext(),
+                        NotificationHandler.getInstance().showCustomNotification(getApplicationContext(),
                                 "", customPushNotification.getData().getMessage());
                     }
                 } catch (Exception e) {
                     KokodaLogger.e(TAG, "parse call notification ", e);
-                    NotificationHandler.getInstance().showNotification(getApplicationContext(),
+                    NotificationHandler.getInstance().showCustomNotification(getApplicationContext(),
                             "", customPushNotification.getData().getMessage());
                 }
             }
