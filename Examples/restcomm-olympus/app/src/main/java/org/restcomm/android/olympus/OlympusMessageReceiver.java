@@ -60,8 +60,8 @@ public class OlympusMessageReceiver extends KokodaMessageReceiver {
                         startMainActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startMainActivity.setAction(Intent.ACTION_MAIN);
                         startActivity(startMainActivity);
-                        NotificationHandler.getInstance().showNotification(getApplicationContext(),
-                                "Incoming call", callNot.getFrom() + " is calling...");
+                        AppStateManager.getInstance().showIncomingCallNotification(
+                                getApplicationContext(), callNot.getFrom());
                     } else {
                         NotificationHandler.getInstance().showNotification(getApplicationContext(),
                                 "", customPushNotification.getData().getMessage());

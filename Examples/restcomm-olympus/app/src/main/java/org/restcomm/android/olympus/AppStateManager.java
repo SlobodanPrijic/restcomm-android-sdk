@@ -1,6 +1,9 @@
 package org.restcomm.android.olympus;
 
+import android.content.Context;
+
 import com.hyperether.kokoda.KokodaManager;
+import com.hyperether.kokoda.NotificationHandler;
 
 /**
  * Created by slobo on 5/16/2017.
@@ -10,6 +13,7 @@ public class AppStateManager {
 
     private static AppStateManager instance;
     private boolean callInProgress = false;
+    private int callNotificationId;
 
     private AppStateManager() {
 
@@ -35,5 +39,15 @@ public class AppStateManager {
 
     public boolean isAppBackgrounded() {
         return !KokodaManager.isInitiated() || !KokodaManager.getInstance().isAppForegrounded();
+    }
+
+    public void showIncomingCallNotification(Context context, String from) {
+        callNotificationId = NotificationHandler.getInstance().showNotification(context,
+                "Incoming call", from + " is calling...");
+    }
+
+    public void removeIncomingCallNotification(Context context) {
+        NotificationHandler.getInstance().removeNotification(context, callNotificationId);
+        callNotificationId = 0;
     }
 }

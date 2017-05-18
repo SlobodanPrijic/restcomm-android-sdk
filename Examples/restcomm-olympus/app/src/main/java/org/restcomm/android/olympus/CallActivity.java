@@ -188,6 +188,8 @@ public class CallActivity extends AppCompatActivity implements RCConnectionListe
 
            bindService(new Intent(this, RCDevice.class), this, Context.BIND_AUTO_CREATE);
        }
+
+        AppStateManager.getInstance().removeIncomingCallNotification(this);
     }
 
     @Override
