@@ -54,6 +54,7 @@ public class OlympusMessageReceiver extends KokodaMessageReceiver {
             if (!AppStateManager.getInstance().isCallInProgress() &&
                     AppStateManager.getInstance().isAppBackgrounded()) {
                 try {
+                    AppStateManager.getInstance().wakeScreen(getApplicationContext());
                     CallNotification callNot = new Gson().fromJson(msg, CallNotification.class);
                     if ("call".equals(callNot.getType())) {
                         Intent startMainActivity = new Intent(this, SigninActivity.class);
@@ -63,13 +64,15 @@ public class OlympusMessageReceiver extends KokodaMessageReceiver {
                         AppStateManager.getInstance().showIncomingCallNotification(
                                 getApplicationContext(), callNot.getFrom());
                     } else {
-                        NotificationHandler.getInstance().showCustomNotification(getApplicationContext(),
-                                "", customPushNotification.getData().getMessage());
+                        NotificationHandler.getInstance()
+                                .showCustomNotification(getApplicationContext(),
+                                        "", customPushNotification.getData().getMessage());
                     }
                 } catch (Exception e) {
                     KokodaLogger.e(TAG, "parse call notification ", e);
-                    NotificationHandler.getInstance().showCustomNotification(getApplicationContext(),
-                            "", customPushNotification.getData().getMessage());
+                    NotificationHandler.getInstance()
+                            .showCustomNotification(getApplicationContext(),
+                                    "", customPushNotification.getData().getMessage());
                 }
             }
         }

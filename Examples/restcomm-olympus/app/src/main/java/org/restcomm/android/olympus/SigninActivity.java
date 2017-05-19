@@ -92,6 +92,8 @@ public class SigninActivity extends AppCompatActivity {
          startActivity(intent);
          // needed to avoid extreme flashing when the App starts up without signing up
          overridePendingTransition(0, 0);
+         if(AppStateManager.getInstance().isAppBackgrounded())
+            AppStateManager.getInstance().turnScreenOn(SigninActivity.this);
       }
       else {
          txtUsername = (EditText) findViewById(R.id.signin_username);
