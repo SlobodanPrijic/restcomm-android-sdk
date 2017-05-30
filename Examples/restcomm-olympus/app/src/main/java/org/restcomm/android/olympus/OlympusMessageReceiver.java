@@ -4,10 +4,10 @@ import android.content.Intent;
 
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
-import com.hyperether.kokoda.CustomPushNotification;
-import com.hyperether.kokoda.KokodaLogger;
-import com.hyperether.kokoda.KokodaMessageReceiver;
-import com.hyperether.kokoda.NotificationHandler;
+import com.hyperether.kokoda.cache.KokodaLogger;
+import com.hyperether.kokoda.data.CustomPushNotification;
+import com.hyperether.kokoda.firebase.KokodaMessageReceiver;
+import com.hyperether.kokoda.notification.NotificationHandler;
 
 /**
  * Kokoda message receiver. Class just {@link RemoteMessage} send to {@link

@@ -47,9 +47,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.google.firebase.messaging.RemoteMessage;
-import com.hyperether.kokoda.KokodaConfig;
 import com.hyperether.kokoda.KokodaManager;
-import com.hyperether.kokoda.KokodaPushListener;
+import com.hyperether.kokoda.config.KokodaConfig;
+import com.hyperether.kokoda.firebase.KokodaPushListener;
 import com.testfairy.TestFairy;
 //import net.hockeyapp.android.CrashManager;
 //import net.hockeyapp.android.UpdateManager;

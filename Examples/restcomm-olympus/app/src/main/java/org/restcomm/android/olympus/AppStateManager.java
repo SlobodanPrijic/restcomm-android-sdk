@@ -7,7 +7,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.hyperether.kokoda.KokodaManager;
-import com.hyperether.kokoda.NotificationHandler;
+import com.hyperether.kokoda.notification.NotificationHandler;
 
 /**
  * Created by slobo on 5/16/2017.
